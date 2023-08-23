@@ -1,5 +1,5 @@
 # flask-restful-starter
-Inspired by this repo:
+Created inspired by this repo:
 https://github.com/tomasrasymas/flask-restful-api-template
 
 Changes: 
