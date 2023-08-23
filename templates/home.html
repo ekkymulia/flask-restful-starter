@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <script>
+        const userSessionData = JSON.parse(localStorage.getItem('user'));
+        if (userSessionData) {
+
+            {#opsi kalau berkunjung ke sini bakal hapus session#}
+            {#localStorage.removeItem('user');#}
+
+            {#opsi kalau berkunjung ke sini dan masih ada session bakal ke dashboard#}
+            window.location.href = '/dashboard';
+
+        }
+    </script>
+    <h1>Welcome to the Home Page</h1>
+    <p>This is the home page of the application.</p>
+    <a href="/login">Klik untuk Login</a> <!-- Link to viewpage -->
+</body>
+</html>

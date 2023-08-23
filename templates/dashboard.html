@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Dashboard</h1>
+
+    <div id="user-info">
+        <p id="logged-in-user"></p>
+    </div>
+
+    <button id="logout-button" onclick="logout()">Logout</button>
+
+    <script>
+        const userSessionData = JSON.parse(localStorage.getItem('user'));
+        if (!userSessionData) {
+            window.location.href = '/';
+        } else {
+            document.getElementById('logged-in-user').textContent = `Logged in as: ${userSessionData.username}`;
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>

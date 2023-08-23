@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login/Register</title>
+</head>
+<body>
+    <h1>Login/Register</h1>
+
+    <script>
+        const userSessionData = JSON.parse(localStorage.getItem('user'));
+        if (userSessionData) {
+
+            {#opsi kalau berkunjung ke sini bakal hapus session#}
+            {#localStorage.removeItem('user');#}
+
+            {#opsi kalau berkunjung ke sini dan masih ada session bakal ke dashboard#}
+            window.location.href = '/dashboard';
+
+        }
+    </script>
+
+    <!-- Login Form -->
+    <h2>Login</h2>
+    <form id="login-form">
+        <label for="login-username">Username:</label>
+        <input type="text" id="login-username" name="username" required>
+        <br>
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" name="password" required>
+        <br>
+        <button type="button" onclick="login()">Login</button>
+    </form>
+
+    <!-- Register Form -->
+    <h2>Register</h2>
+    <form id="register-form">
+        <label for="register-username">Username:</label>
+        <input type="text" id="register-username" name="username" required>
+        <br>
+        <label for="register-password">Password:</label>
+        <input type="password" id="register-password" name="password" required>
+        <br>
+        <button type="button" onclick="register()">Register</button>
+    </form>
+
+    <script>
+        function login() {
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            const data = {
+                username: username,
+                password: password
+            };
+
+            fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+
+                if (result.response === 200) {
+                    localStorage.setItem('user', JSON.stringify(result.user));
+                    window.location.href = '/dashboard';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function register() {
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+            const data = {
+                username: username,
+                password: password
+            };
+
+            fetch('/api/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
